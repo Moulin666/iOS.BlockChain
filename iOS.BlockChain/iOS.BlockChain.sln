@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS.BlockChain", "iOS.BlockChain.csproj", "{A44B0253-7776-4D2E-B82A-20F4F192FD0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A44B0253-7776-4D2E-B82A-20F4F192FD0B}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{A44B0253-7776-4D2E-B82A-20F4F192FD0B}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{A44B0253-7776-4D2E-B82A-20F4F192FD0B}.Release|iPhone.ActiveCfg = Release|iPhone
+		{A44B0253-7776-4D2E-B82A-20F4F192FD0B}.Release|iPhone.Build.0 = Release|iPhone
+		{A44B0253-7776-4D2E-B82A-20F4F192FD0B}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{A44B0253-7776-4D2E-B82A-20F4F192FD0B}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{A44B0253-7776-4D2E-B82A-20F4F192FD0B}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{A44B0253-7776-4D2E-B82A-20F4F192FD0B}.Debug|iPhone.Build.0 = Debug|iPhone
+	EndGlobalSection
+EndGlobal
