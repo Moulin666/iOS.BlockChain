@@ -26,7 +26,7 @@ namespace iOS.BlockChain
             if (File.Exists(fileName))
             {
                 var info = File.ReadAllText(fileName);
-                var userMap = JsonConvert.DeserializeObject<UserMap>(info);
+                //var userMap = JsonConvert.DeserializeObject<UserMap>(info);
 
                 var tabBar = Storyboard.InstantiateViewController("MainTabBar") as UITabBarController;
                 var appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
@@ -51,21 +51,26 @@ namespace iOS.BlockChain
                 return;
             }
 
+            LoginAsync();
+        }
+
+        partial void QrCodeLoginButton_TouchUpInside(UIButton sender)
+        {
+            QrCodeLoginAsync();
+        }
+
+        private async void LoginAsync()
+        {
             // Send login request.
-            var user = FetchObject<UserMap>("asdasd");
+            string url = string.Format("");
+            //var user = await FetchObject<User>(url);
 
-            // to do login response
             // Handle login response
+            // check response code
 
-            // begin test model
-            var testUser = new ServerApi.Map.UserMap();
-            testUser.id = 12;
-            testUser.email = EmailInput.Text;
-            testUser.password = PasswordInput.Text;
-            // end test model
-
+            var user = new User();
             // Save data
-            string jsonUser = JsonConvert.SerializeObject(testUser);
+            string jsonUser = JsonConvert.SerializeObject(user);
 
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var fileName = Path.Combine(documents, "UserInfo.json");
@@ -79,18 +84,35 @@ namespace iOS.BlockChain
             appDelegate.Window.RootViewController = tabBar;
         }
 
-        partial void QrCodeLoginButton_TouchUpInside(UIButton sender)
-        {
-            QrTestButtonClickAsync();
-        }
-
-        private async void QrTestButtonClickAsync()
+        private async void QrCodeLoginAsync()
         {
             var scanner = new ZXing.Mobile.MobileBarcodeScanner();
             var result = await scanner.Scan();
 
-            if (result != null)
-                QrTestResultLabel.Text = result.ToString();
+            if (result == null)
+                return;
+
+            // Send login request.
+            string url = string.Format("");
+            //var user = await FetchObject<User>(url);
+
+            // Handle login response
+            // check response code
+
+            // Save data
+            var user = new User();
+            string jsonUser = JsonConvert.SerializeObject(user);
+
+            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var fileName = Path.Combine(documents, "UserInfo.json");
+
+            File.WriteAllText(fileName, jsonUser);
+
+            // Change view
+            var tabBar = Storyboard.InstantiateViewController("MainTabBar") as UITabBarController;
+            var appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+            appDelegate.Window.RootViewController = tabBar;
         }
     }
 }

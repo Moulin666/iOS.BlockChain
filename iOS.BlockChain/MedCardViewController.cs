@@ -14,6 +14,11 @@ namespace iOS.BlockChain
         {
             base.ViewDidLoad();
 
+            // Send MedCard request.
+            //string url = string.Format("");
+            //var user = await FetchObject<UserMap>(url);
+
+            // Handle MedCard response
 
         }
     }

@@ -110,8 +110,8 @@
     <Folder Include="ServerApi\Map\" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -126,7 +126,7 @@
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ServerApi\ServerApi.cs" />
-    <Compile Include="ServerApi\Map\UserMap.cs" />
+    <Compile Include="ServerApi\Map\Maps.cs" />
     <Compile Include="MainMenuViewController.cs" />
     <Compile Include="MainMenuViewController.designer.cs">
       <DependentUpon>MainMenuViewController.cs</DependentUpon>
@@ -149,6 +149,9 @@
     <BundleResource Include="Resources\MedCard.png" />
     <BundleResource Include="Resources\MainMenu.png" />
     <BundleResource Include="Resources\QrCode.png" />
+    <BundleResource Include="Resources\Invitro.png" />
+    <BundleResource Include="Resources\Diamet.png" />
+    <BundleResource Include="Resources\kds.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

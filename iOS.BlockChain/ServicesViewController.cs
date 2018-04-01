@@ -14,7 +14,7 @@ namespace iOS.BlockChain
         {
             UIAlertView alert = new UIAlertView()
             {
-                Title = "Button",
+                Title = "Integrate with",
                 Message = "Sberbank API"
             };
             alert.AddButton("OK");
@@ -25,7 +25,7 @@ namespace iOS.BlockChain
         {
             UIAlertView alert = new UIAlertView()
             {
-                Title = "Button",
+                Title = "Integrate with",
                 Message = "Alfabank API"
             };
             alert.AddButton("OK");
@@ -36,8 +36,19 @@ namespace iOS.BlockChain
         {
             UIAlertView alert = new UIAlertView()
             {
-                Title = "Button",
+                Title = "Integrate with",
                 Message = "Emias API"
+            };
+            alert.AddButton("OK");
+            alert.Show();
+        }
+
+        partial void UIButton17047_TouchUpInside(UIButton sender)
+        {
+            UIAlertView alert = new UIAlertView()
+            {
+                Title = "Integrate with",
+                Message = "Invitro API"
             };
             alert.AddButton("OK");
             alert.Show();

@@ -1,15 +1,10 @@
-using Foundation;
 using System;
 using System.IO;
-using System.Drawing;
 using ZXing;
 using ZXing.Common;
 using ZXing.QrCode;
 using ZXing.Mobile;
 using UIKit;
-using iOS.BlockChain.ServerApi.Map;
-
-using static iOS.BlockChain.ServerApi.ServerApi;
 
 namespace iOS.BlockChain
 {
@@ -23,13 +18,15 @@ namespace iOS.BlockChain
         {
             base.ViewDidLoad();
 
+            // make it Async
             // Send qr code request.
-            //var user = FetchObject<UserMap>("asdasd");
+            //string url = string.Format("");
+            //var user = await FetchObject<UserMap>(url);
 
             // Handle qr code response
 
             // begin test str
-            string str = "Lucifer Our Lord";
+            string str = "Lucifer Our Lord 666";
             // end test str
 
             // qr code generator
@@ -51,7 +48,8 @@ namespace iOS.BlockChain
             };
             alert.AddButton("Yes");
             alert.AddButton("No");
-            alert.Clicked += delegate (object obj, UIButtonEventArgs eventArgs) {
+            alert.Clicked += delegate (object obj, UIButtonEventArgs eventArgs)
+            {
                 if (eventArgs.ButtonIndex == 0)
                 {
                     var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

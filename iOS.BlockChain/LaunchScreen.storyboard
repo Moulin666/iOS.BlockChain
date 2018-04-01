@@ -47,6 +47,5 @@
         <image name="MedCard.png" width="32" height="32"/>
         <image name="MainMenu.png" width="32" height="32"/>
         <image name="QrCode.png" width="96" height="96"/>
-        <image name="dimas.jpg" width="978" height="1216"/>
     </resources>
 </document>

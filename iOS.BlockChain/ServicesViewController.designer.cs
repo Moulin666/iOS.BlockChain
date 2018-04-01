@@ -42,6 +42,14 @@ namespace iOS.BlockChain
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void SberbankButton_TouchUpInside (UIKit.UIButton sender);
 
+        [Action ("UIButton17047_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void UIButton17047_TouchUpInside (UIKit.UIButton sender);
+
+        [Action ("UIButton17074_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void UIButton17074_TouchUpInside (UIKit.UIButton sender);
+
         void ReleaseDesignerOutlets ()
         {
             if (AlfabankButton != null) {
