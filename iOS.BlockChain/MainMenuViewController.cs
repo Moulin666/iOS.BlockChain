@@ -26,7 +26,7 @@ namespace iOS.BlockChain
             // Handle qr code response
 
             // begin test str
-            string str = "Lucifer Our Lord 666";
+            string str = "74DF52ACE8D401FA877E99F8238492832713CB206C7C09388C223D73BC5C3135D136";
             // end test str
 
             // qr code generator

@@ -21,7 +21,7 @@ namespace iOS.BlockChain.ServerApi
                 {
                     JsonValue json = await Task.Run(() => JsonValue.Load(stream));
 
-                    return JsonConvert.DeserializeObject<T>(json);
+                    return JsonConvert.DeserializeObject<T>(json.ToString());
                 }
             }
         }

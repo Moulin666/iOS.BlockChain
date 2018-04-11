@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using UIKit;
 
 using static iOS.BlockChain.ServerApi.ServerApi;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace iOS.BlockChain
 {
@@ -25,9 +27,7 @@ namespace iOS.BlockChain
 
             if (File.Exists(fileName))
             {
-                var info = File.ReadAllText(fileName);
-                //var userMap = JsonConvert.DeserializeObject<UserMap>(info);
-
+                // Change view
                 var tabBar = Storyboard.InstantiateViewController("MainTabBar") as UITabBarController;
                 var appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
 
@@ -51,7 +51,10 @@ namespace iOS.BlockChain
                 return;
             }
 
-            LoginAsync();
+            string passwordHash = BitConverter.ToString(SHA256.Create().ComputeHash(
+                Encoding.UTF8.GetBytes(PasswordInput.Text))).Replace("-", "");
+            
+            LoginAsync(EmailInput.Text, passwordHash);
         }
 
         partial void QrCodeLoginButton_TouchUpInside(UIButton sender)
@@ -59,16 +62,34 @@ namespace iOS.BlockChain
             QrCodeLoginAsync();
         }
 
-        private async void LoginAsync()
+        private async void LoginAsync(string email, string passwordHash)
         {
             // Send login request.
-            string url = string.Format("");
-            //var user = await FetchObject<User>(url);
+            string methodRequest = "login";
+            string url = string.Format("http://blockchain.whisperq.ru/api/{0}?token={1}&login={2}&password={3}",
+                                       methodRequest, Configuration.TokenApp, email, passwordHash);
+            
+            var response = await FetchObject<response_api>(url);
 
             // Handle login response
-            // check response code
+            if(response.request_Info.answer != "OK")
+            {
+                UIAlertView alert = new UIAlertView()
+                {
+                    Title = "Server",
+                    Message = string.Format("Server response error. {0} : {1}",
+                                            response.request_Info.code, response.request_Info.answer)
+                };
+                alert.AddButton("OK");
+                alert.Show();
+
+                return;
+            }
 
             var user = new User();
+            user.Email = email;
+            user.Password = passwordHash;
+
             // Save data
             string jsonUser = JsonConvert.SerializeObject(user);
 

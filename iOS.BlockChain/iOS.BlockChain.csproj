@@ -139,6 +139,7 @@
     <Compile Include="ServicesViewController.designer.cs">
       <DependentUpon>ServicesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuration.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\person.png" />
