@@ -74,24 +74,30 @@ namespace iOS.BlockChain
             // Handle login response
             if(response.request_Info.answer != "OK")
             {
-                UIAlertView alert = new UIAlertView()
+                UIAlertView alert1 = new UIAlertView()
                 {
                     Title = "Server",
                     Message = string.Format("Server response error. {0} : {1}",
                                             response.request_Info.code, response.request_Info.answer)
                 };
-                alert.AddButton("OK");
-                alert.Show();
+                alert1.AddButton("OK");
+                alert1.Show();
 
                 return;
             }
 
-            var user = new User();
-            user.Email = email;
-            user.Password = passwordHash;
+            var user = response.send_data.user;
 
             // Save data
             string jsonUser = JsonConvert.SerializeObject(user);
+
+            UIAlertView alert = new UIAlertView()
+            {
+                Title = "Server",
+                Message = jsonUser
+            };
+            alert.AddButton("OK");
+            alert.Show();
 
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var fileName = Path.Combine(documents, "UserInfo.json");
@@ -121,7 +127,7 @@ namespace iOS.BlockChain
             // check response code
 
             // Save data
-            var user = new User();
+            var user = new user();
             string jsonUser = JsonConvert.SerializeObject(user);
 
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

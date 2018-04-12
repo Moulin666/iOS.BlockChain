@@ -16,6 +16,7 @@ namespace iOS.BlockChain.ServerApi.Map
     {
         public List<Medical> medicals;
         public List<Contract> contracts;
+        public user user;
     }
 
     [Serializable]
@@ -48,7 +49,7 @@ namespace iOS.BlockChain.ServerApi.Map
     }
 
     [Serializable]
-    public class User
+    public class user
     {
         public int UserId { get; set; }
 
@@ -58,6 +59,8 @@ namespace iOS.BlockChain.ServerApi.Map
         public string Hash { get; set; }
         public string type_of_bloud { get; set; }
         public bool is_donor { get; set; }
+        public float balance { get; set; }
+        public string token { get; set; }
 
         public int? RoleId { get; set; }
         public Role Role { get; set; }
@@ -68,11 +71,11 @@ namespace iOS.BlockChain.ServerApi.Map
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<User> Users { get; set; }
+        public List<user> Users { get; set; }
 
         public Role()
         {
-            Users = new List<User>();
+            Users = new List<user>();
         }
     }
 }

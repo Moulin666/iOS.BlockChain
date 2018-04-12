@@ -5,6 +5,8 @@ using ZXing.Common;
 using ZXing.QrCode;
 using ZXing.Mobile;
 using UIKit;
+using Newtonsoft.Json;
+using iOS.BlockChain.ServerApi.Map;
 
 namespace iOS.BlockChain
 {
@@ -18,16 +20,10 @@ namespace iOS.BlockChain
         {
             base.ViewDidLoad();
 
-            // make it Async
-            // Send qr code request.
-            //string url = string.Format("");
-            //var user = await FetchObject<UserMap>(url);
-
-            // Handle qr code response
-
-            // begin test str
-            string str = "74DF52ACE8D401FA877E99F8238492832713CB206C7C09388C223D73BC5C3135D136";
-            // end test str
+            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var fileName = Path.Combine(documents, "UserInfo.json");
+            var user = JsonConvert.DeserializeObject<user>(File.ReadAllText(fileName));
+            var str = string.Format("http://blockchain.whisperq.ru/medical/Emergency?token={0}", user.token);
 
             // qr code generator
             Writer writer = new QRCodeWriter();
@@ -35,7 +31,6 @@ namespace iOS.BlockChain
             BitmapRenderer bitmapRenderer = new BitmapRenderer();
             UIImage image = bitmapRenderer.Render(bitMatrix, BarcodeFormat.QR_CODE, str);
 
-            // Render image
             QrCodeImage.Image = image;
         }
 
