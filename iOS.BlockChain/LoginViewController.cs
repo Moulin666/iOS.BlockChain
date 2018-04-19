@@ -1,13 +1,13 @@
 using System;
 using System.IO;
+using System.Text;
+using System.Security.Cryptography;
 using System.ComponentModel.DataAnnotations;
 using iOS.BlockChain.ServerApi.Map;
 using Newtonsoft.Json;
 using UIKit;
 
 using static iOS.BlockChain.ServerApi.ServerApi;
-using System.Text;
-using System.Security.Cryptography;
 
 namespace iOS.BlockChain
 {
@@ -44,17 +44,16 @@ namespace iOS.BlockChain
                 return;
             }
 
-            var checkMail = new EmailAddressAttribute();
-            if (!checkMail.IsValid(EmailInput.Text))
+            if (LoginInput.Text.Length < 6 || LoginInput.Text.Length > 16)
             {
-                ErrorLabel.Text = "Email address not valid.";
+                ErrorLabel.Text = "Login not valid.";
                 return;
             }
 
             string passwordHash = BitConverter.ToString(SHA256.Create().ComputeHash(
                 Encoding.UTF8.GetBytes(PasswordInput.Text))).Replace("-", "");
             
-            LoginAsync(EmailInput.Text, passwordHash);
+            LoginAsync(LoginInput.Text, passwordHash);
         }
 
         partial void QrCodeLoginButton_TouchUpInside(UIButton sender)
@@ -62,47 +61,43 @@ namespace iOS.BlockChain
             QrCodeLoginAsync();
         }
 
-        private async void LoginAsync(string email, string passwordHash)
+        private async void LoginAsync(string login, string passwordHash)
         {
             // Send login request.
             string methodRequest = "login";
             string url = string.Format("http://blockchain.whisperq.ru/api/{0}?token={1}&login={2}&password={3}",
-                                       methodRequest, Configuration.TokenApp, email, passwordHash);
-            
+                                       methodRequest, Configuration.TokenApp, login, passwordHash);
+
             var response = await FetchObject<response_api>(url);
 
             // Handle login response
-            if(response.request_Info.answer != "OK")
+            if (response.request_Info.answer != "OK")
             {
-                UIAlertView alert1 = new UIAlertView()
+                UIAlertView alert = new UIAlertView()
                 {
                     Title = "Server",
                     Message = string.Format("Server response error. {0} : {1}",
                                             response.request_Info.code, response.request_Info.answer)
                 };
-                alert1.AddButton("OK");
-                alert1.Show();
+                alert.AddButton("OK");
+                alert.Show();
 
                 return;
             }
 
             var user = response.send_data.user;
+            var medicals = response.send_data.medicals;
 
             // Save data
             string jsonUser = JsonConvert.SerializeObject(user);
-
-            UIAlertView alert = new UIAlertView()
-            {
-                Title = "Server",
-                Message = jsonUser
-            };
-            alert.AddButton("OK");
-            alert.Show();
+            string jsonMedicals = JsonConvert.SerializeObject(medicals);
 
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var fileName = Path.Combine(documents, "UserInfo.json");
+            var userInfoFileName = Path.Combine(documents, "UserInfo.json");
+            var medicalsInfoFileName = Path.Combine(documents, "MedicalsInfo.json");
 
-            File.WriteAllText(fileName, jsonUser);
+            File.WriteAllText(userInfoFileName, jsonUser);
+            File.WriteAllText(medicalsInfoFileName, jsonUser);
 
             // Change view
             var tabBar = Storyboard.InstantiateViewController("MainTabBar") as UITabBarController;
@@ -119,27 +114,13 @@ namespace iOS.BlockChain
             if (result == null)
                 return;
 
-            // Send login request.
-            string url = string.Format("");
-            //var user = await FetchObject<User>(url);
-
-            // Handle login response
-            // check response code
-
-            // Save data
-            var user = new user();
-            string jsonUser = JsonConvert.SerializeObject(user);
-
-            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var fileName = Path.Combine(documents, "UserInfo.json");
-
-            File.WriteAllText(fileName, jsonUser);
-
-            // Change view
-            var tabBar = Storyboard.InstantiateViewController("MainTabBar") as UITabBarController;
-            var appDelegate = UIApplication.SharedApplication.Delegate as AppDelegate;
-
-            appDelegate.Window.RootViewController = tabBar;
+            UIAlertView alert = new UIAlertView()
+            {
+                Title = "Server",
+                Message = string.Format("result = {0}", result)
+            };
+            alert.AddButton("OK");
+            alert.Show();
         }
     }
 }

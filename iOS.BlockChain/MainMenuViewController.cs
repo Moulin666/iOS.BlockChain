@@ -20,12 +20,17 @@ namespace iOS.BlockChain
         {
             base.ViewDidLoad();
 
+            // Init
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var fileName = Path.Combine(documents, "UserInfo.json");
-            var user = JsonConvert.DeserializeObject<user>(File.ReadAllText(fileName));
+            var userInfoFileName = Path.Combine(documents, "UserInfo.json");
+            var medicalsInfoFileName = Path.Combine(documents, "MedicalsInfo.json");
+
+            var user = JsonConvert.DeserializeObject<user>(File.ReadAllText(userInfoFileName));
+            var medicals = JsonConvert.DeserializeObject<Medical>(File.ReadAllText(medicalsInfoFileName));
+
+            // QR Code
             var str = string.Format("http://blockchain.whisperq.ru/medical/Emergency?token={0}", user.token);
 
-            // qr code generator
             Writer writer = new QRCodeWriter();
             BitMatrix bitMatrix = writer.encode(str, BarcodeFormat.QR_CODE, 340, 300);
             BitmapRenderer bitmapRenderer = new BitmapRenderer();

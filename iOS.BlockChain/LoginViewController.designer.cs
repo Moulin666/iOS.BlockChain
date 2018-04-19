@@ -16,15 +16,15 @@ namespace iOS.BlockChain
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField EmailInput { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel ErrorLabel { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton LoginButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField LoginInput { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -48,11 +48,6 @@ namespace iOS.BlockChain
 
         void ReleaseDesignerOutlets ()
         {
-            if (EmailInput != null) {
-                EmailInput.Dispose ();
-                EmailInput = null;
-            }
-
             if (ErrorLabel != null) {
                 ErrorLabel.Dispose ();
                 ErrorLabel = null;
@@ -61,6 +56,11 @@ namespace iOS.BlockChain
             if (LoginButton != null) {
                 LoginButton.Dispose ();
                 LoginButton = null;
+            }
+
+            if (LoginInput != null) {
+                LoginInput.Dispose ();
+                LoginInput = null;
             }
 
             if (PasswordInput != null) {

@@ -16,10 +16,28 @@ namespace iOS.BlockChain
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel GroupBloodText { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel HashText { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UINavigationItem InfoTitle { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
+            if (GroupBloodText != null) {
+                GroupBloodText.Dispose ();
+                GroupBloodText = null;
+            }
+
+            if (HashText != null) {
+                HashText.Dispose ();
+                HashText = null;
+            }
+
             if (InfoTitle != null) {
                 InfoTitle.Dispose ();
                 InfoTitle = null;

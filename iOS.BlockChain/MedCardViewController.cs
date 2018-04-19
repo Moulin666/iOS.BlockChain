@@ -1,5 +1,8 @@
 using Foundation;
+using iOS.BlockChain.ServerApi.Map;
+using Newtonsoft.Json;
 using System;
+using System.IO;
 using UIKit;
 
 namespace iOS.BlockChain
@@ -14,12 +17,17 @@ namespace iOS.BlockChain
         {
             base.ViewDidLoad();
 
-            // Send MedCard request.
-            //string url = string.Format("");
-            //var user = await FetchObject<UserMap>(url);
+            // Init
+            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var userInfoFileName = Path.Combine(documents, "UserInfo.json");
+            var medicalsInfoFileName = Path.Combine(documents, "MedicalsInfo.json");
 
-            // Handle MedCard response
+            var user = JsonConvert.DeserializeObject<user>(File.ReadAllText(userInfoFileName));
+            var medicals = JsonConvert.DeserializeObject<Medical>(File.ReadAllText(medicalsInfoFileName));
 
+            // Set Up
+            GroupBloodText.Text = string.Format("Группа крови: {0}", user.type_of_bloud);
+            HashText.Text = string.Format("Hash: {0}", user.Hash);
         }
     }
 }
